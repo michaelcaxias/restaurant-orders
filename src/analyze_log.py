@@ -29,8 +29,16 @@ def many_times_arnaldo_asked_hamburguer(orders_list):
     return hamburgers_count
 
 
-def which_plates_joao_never_asked():
-    raise NotImplementedError
+def which_plates_joao_never_asked(orders_list):
+    foods = set()
+    foods_of_john = set()
+
+    for name, order, _day in orders_list:
+        foods.add(order)
+        if name == 'joao':
+            foods_of_john.add(order)
+
+    return foods.difference(foods_of_john)
 
 
 def which_days_did_joao_never_go_to_the_cafeteria():
@@ -44,12 +52,15 @@ def analyze_log(path_to_file):
         with open(path_to_file) as file:
             file_reader = csv.reader(file, delimiter=",", quotechar='"')
             orders_list = [order for order in file_reader]
+
             maria_favorites = maria_favorites_plates(orders_list)
             quantity_hamburguers = many_times_arnaldo_asked_hamburguer(orders_list)
+            plates_never_asked = which_plates_joao_never_asked(orders_list)
 
             content = [
                 f"{maria_favorites}\n",
                 f"{quantity_hamburguers}\n",
+                f"{plates_never_asked}\n"
             ]
 
         with open('data/mkt_campaign.txt', 'w') as file:
