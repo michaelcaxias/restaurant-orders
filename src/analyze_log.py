@@ -1,15 +1,19 @@
 import csv
 
+
 def maria_favorites_plates(orders_list):
     all_marias_plates = {}
 
     return all_marias_plates
 
+
 def many_times_arnaldo_asked():
     raise NotImplementedError
 
+
 def which_plates_joao_never_asked():
     raise NotImplementedError
+
 
 def which_days_did_joao_never_go_to_the_cafeteria():
     raise NotImplementedError
