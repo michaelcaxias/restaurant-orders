@@ -18,6 +18,7 @@ def which_plates_joao_never_asked():
 def which_days_did_joao_never_go_to_the_cafeteria():
     raise NotImplementedError
 
+
 def analyze_log(path_to_file):
     if not path_to_file.endswith('csv'):
         raise FileNotFoundError(f"Extensão inválida: '{path_to_file}'")
