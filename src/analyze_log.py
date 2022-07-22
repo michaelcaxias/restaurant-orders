@@ -2,9 +2,21 @@ import csv
 
 
 def maria_favorites_plates(orders_list):
-    all_marias_plates = {}
+    plates = {}
 
-    return all_marias_plates
+    for name, order, _day in orders_list:
+        if name == 'maria':
+            if order not in plates:
+                plates[order] = 1
+            else:
+                plates[order] += 1
+
+    # key necessário para
+    # https://pythonguides.com/python-find-max-value-in-a-dictionary
+
+    favorite_plate = max(plates, key=plates.get)
+
+    return favorite_plate
 
 
 def many_times_arnaldo_asked():
@@ -27,7 +39,14 @@ def analyze_log(path_to_file):
             file_reader = csv.reader(file, delimiter=",", quotechar='"')
             orders_list = [order for order in file_reader]
             maria_favorites = maria_favorites_plates(orders_list)
-            return maria_favorites
+
+            content = [
+                f"{maria_favorites}\n",
+            ]
+
+        with open('data/mkt_campaign.txt', 'w') as file:
+            file.writelines(content)
+            file.close()
 
     except FileNotFoundError:
         raise FileNotFoundError(f"Arquivo inexistente: '{path_to_file}'")
