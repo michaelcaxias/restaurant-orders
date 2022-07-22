@@ -41,8 +41,18 @@ def which_plates_joao_never_asked(orders_list):
     return foods.difference(foods_of_john)
 
 
-def which_days_did_joao_never_go_to_the_cafeteria():
-    raise NotImplementedError
+def which_days_did_joao_never_go_to_the_cafeteria(
+  orders_list
+  ):
+    days = set()
+    days_of_john = set()
+
+    for name, _order, day in orders_list:
+        days.add(day)
+        if name == 'joao':
+            days_of_john.add(day)
+
+    return days.difference(days_of_john)
 
 
 def analyze_log(path_to_file):
@@ -54,13 +64,19 @@ def analyze_log(path_to_file):
             orders_list = [order for order in file_reader]
 
             maria_favorites = maria_favorites_plates(orders_list)
-            quantity_hamburguers = many_times_arnaldo_asked_hamburguer(orders_list)
+            quantity_hamburguers = many_times_arnaldo_asked_hamburguer(
+              orders_list
+              )
             plates_never_asked = which_plates_joao_never_asked(orders_list)
+            days_never_went = which_days_did_joao_never_go_to_the_cafeteria(
+              orders_list
+              )
 
             content = [
                 f"{maria_favorites}\n",
                 f"{quantity_hamburguers}\n",
                 f"{plates_never_asked}\n"
+                f"{days_never_went}\n"
             ]
 
         with open('data/mkt_campaign.txt', 'w') as file:
